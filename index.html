@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=REM&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Website</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #globe-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1; /* Put the globe container behind other elements */
+    }
+
+   /* Add media queries to adjust the globe size for different screen sizes */
+   @media screen and (max-width: 400px) {
+      #globe-container {
+        min-height: 200px;
+      }
+    }
+
+    @media screen and (min-width: 401px) and (max-width: 600px) {
+      #globe-container {
+        min-height: 300px;
+      }
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 900px) {
+      #globe-container {
+        min-height: 400px;
+      }
+    }
+
+    @media screen and (min-width: 901px) and (max-width: 1200px) {
+      #globe-container {
+        min-height: 500px;
+      }
+    }
+
+    @media screen and (min-width: 1201px) and (max-width: 1440px) {
+      #globe-container {
+        min-height: 600px;
+      }
+    }
+
+    @media screen and (min-width: 1441px) { 
+      #globe-container {
+        min-height: 700px;
+      }
+    }
+    #greeting-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex-direction: column; /* Arrange the lines vertically */
+      font-family: 'REM', sans-serif;
+      font-size: 36px;
+      color: #fff;
+      text-align: center; /* Center the greeting text */
+      position: relative;
+      z-index: 1; /* Put the greeting container above the globe container */
+    }
+  </style>
+</head>
+<body>
+  <div id="globe-container"></div>
+  <div id="greeting-container">
+    <span id="greeting-message-line1"></span>
+    <span id="greeting-message-line2"></span>
+  </div>
+  <script src="three.r134.min.js"></script>
+  <script src="vanta.globe.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      VANTA.GLOBE({
+        el: "#globe-container",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xc1b8
+      });
+
+      // Typing animation for the greeting message
+      const greetingMessage1 = "Hello, there! 😊";
+      const greetingMessage2 = "Welcome to my Portfolio.";
+      const greetingLine1 = document.getElementById("greeting-message-line1");
+      const greetingLine2 = document.getElementById("greeting-message-line2");
+      let letterIndex1 = 0;
+      let letterIndex2 = 0;
+
+      function typeLetter1() {
+        greetingLine1.textContent += greetingMessage1[letterIndex1];
+        letterIndex1++;
+        if (letterIndex1 < greetingMessage1.length) {
+          setTimeout(typeLetter1, 100); // Adjust the typing speed here (milliseconds)
+        } else {
+          setTimeout(typeLetter2, 1000); // Start typing the second line after 1 second
+        }
+      }
+
+      function typeLetter2() {
+        greetingLine2.textContent += greetingMessage2[letterIndex2];
+        letterIndex2++;
+        if (letterIndex2 < greetingMessage2.length) {
+          setTimeout(typeLetter2, 100); // Adjust the typing speed here (milliseconds)
+        }
+      }
+
+      typeLetter1(); // Start typing the first line
+
+    });
+  </script>
+</body>
+</html>
